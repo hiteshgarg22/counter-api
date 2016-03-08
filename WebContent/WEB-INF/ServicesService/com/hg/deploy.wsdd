@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ServicesService WSDL service -->
+
+  <service name="Services" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://hg.com"/>
+      <parameter name="wsdlServiceElement" value="ServicesService"/>
+      <parameter name="schemaQualified" value="http://hg.com"/>
+      <parameter name="wsdlServicePort" value="Services"/>
+      <parameter name="className" value="com.hg.Services"/>
+      <parameter name="wsdlPortType" value="Services"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://hg.com" xmlns:retNS="http://hg.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="search" qname="operNS:search" returnQName="retNS:searchReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://hg.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:inputStr" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://hg.com" xmlns:retNS="http://hg.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="top" qname="operNS:top" returnQName="retNS:topReturn" returnType="rtns:anyType" soapAction="">
+        <parameter xmlns:pns="http://hg.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:number" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://hg.com" xmlns:retNS="http://hg.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="sampleParagraph" qname="operNS:sampleParagraph" returnQName="retNS:sampleParagraphReturn" returnType="rtns:anyType" soapAction="">
+      </operation>
+      <parameter name="allowedMethods" value="search top sampleParagraph"/>
+
+      <typeMapping xmlns:ns="http://hg.com" qname="ns:&gt;sampleParagraphResponse" type="java:com.hg.SampleParagraphResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://hg.com" qname="ns:&gt;sampleParagraph" type="java:com.hg.SampleParagraph" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
